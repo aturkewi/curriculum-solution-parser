@@ -10,20 +10,21 @@ def parse(cell)
     memo[:end] = index if /#END/ =~ line
   end
 
-  indent = original_code_array[memo[:start] + 1].match(/^\s+/)
-  insert = indent[0] + "pass"
-  original_code_array.slice!(memo[:start], memo[:end])
+  if memo[:start] && memo[:end]
+    puts "updating..."
+    indent = original_code_array[memo[:start] + 1].match(/^\s+/)
+    insert = indent[0] + "pass"
+    original_code_array.slice!(memo[:start], memo[:end])
 
-  cell["source"] = original_code_array.insert(memo[:start], insert)
+    cell["source"] = original_code_array.insert(memo[:start], insert)
+  end
+
   cell
 end
 
 filename = "./index.ipynb"
 file = File.open filename
 json = JSON.load file
-
-puts json
-system("pwd")
 
 new_json = json["cells"].map do |cell|
   if cell["cell_type"] == "code"
