@@ -22,6 +22,8 @@ filename = "./index.ipynb"
 file = File.open filename
 json = JSON.load file
 
+puts json
+
 new_json = json["cells"].map do |cell|
   if cell["cell_type"] == "code"
     parse(cell)
