@@ -38,9 +38,11 @@ end
 system("git checkout master")
 system("rm index.ipynb")
 system("touch index.ipynb")
-
 File.write("index.ipynb", new_json)
+
+system("jupyter nbconvert --to markdown index.ipynb")
+system("mv index.md README.md")
 
 system("git add .")
 system("git commit -m 'update lab'")
-system("git push origin master")
+system("git push -q https://${GITHUB_OAUTH_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git master -f")
