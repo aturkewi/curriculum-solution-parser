@@ -34,7 +34,8 @@ new_json = json["cells"].map do |cell|
   end
 end
 
-system("git checkout -b master")
+# We will need to ensure that this branch _actually_ exists at some point
+system("git checkout master")
 system("rm index.ipynb")
 system("touch index.ipynb")
 
