@@ -34,4 +34,12 @@ new_json = json["cells"].map do |cell|
   end
 end
 
-puts new_json
+system("git checkout -b master")
+system("rm index.ipynb")
+system("touch index.ipynb")
+
+File.write("index.ipynb", new_json)
+
+system("git add .")
+system("git commit -m 'update lab'")
+system("git push origin master")
